@@ -19,11 +19,12 @@ package gles2
 #cgo windows CFLAGS: -DTAG_WINDOWS
 #cgo !gles2,windows       LDFLAGS: -lopengl32
 #cgo gles2,windows        LDFLAGS: -lGLESv2
+#cgo gles2,linux        LDFLAGS: -lGLESv2
 #cgo darwin CFLAGS: -DTAG_DARWIN
 #cgo !gles2,darwin LDFLAGS: -framework OpenGL
 #cgo gles2,darwin  LDFLAGS: -framework OpenGLES
 #cgo linux freebsd netbsd openbsd CFLAGS: -DTAG_POSIX
-#cgo !egl,linux !egl,freebsd !egl,netbsd !egl,openbsd pkg-config: gl
+#cgo !egl,linux !egl,freebsd !egl,netbsd !egl,openbsd pkg-config: glesv2
 #cgo egl,linux egl,freebsd egl,netbsd egl,openbsd egl,windows CFLAGS: -DTAG_EGL
 #cgo egl,linux egl,freebsd egl,netbsd egl,openbsd pkg-config: egl
 #cgo egl,windows LDFLAGS: -lEGL
@@ -59,9 +60,9 @@ package gles2
 	}
 #elif defined(TAG_POSIX)
 	#include <stdlib.h>
-	#include <GL/glx.h>
+	#include <SDL2/SDL.h>
 	void* GlowGetProcAddress_gles231(const char* name) {
-		return glXGetProcAddress((const GLubyte *) name);
+		return SDL_GL_GetProcAddress(name);
 	}
 #endif
 */
