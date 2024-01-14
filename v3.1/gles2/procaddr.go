@@ -18,6 +18,7 @@ package gles2
 /*
 #cgo gles2 LDFLAGS: -lGLESv2
 #include <dlfcn.h>
+#include <stdlib.h>
 static void* libHandle = NULL;
 void* GlowGetProcAddress_gles231(const char* name) {
 	if (libHandle == NULL)
