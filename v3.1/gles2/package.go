@@ -16,8 +16,7 @@
 //
 package gles2
 
-// #cgo !gles2       LDFLAGS: -lopengl32
-// #cgo gles2        LDFLAGS: -lGLESv2
+// #cgo LDFLAGS: -lGLESv2
 // #cgo !egl,linux !egl,freebsd !egl,netbsd !egl,openbsd pkg-config: glesv2
 // #cgo egl,linux egl,freebsd egl,netbsd egl,openbsd    pkg-config: egl
 // #if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
