@@ -24,7 +24,7 @@ Once the bindings are installed you can use them with the appropriate import sta
 ```Go
 package main
 
-import "github.com/go-gl/gl/v3.3-core/gl"
+import "github.com/leonkasovan/gl/v3.3-core/gl"
 
 func main() {
 	window := ... // Open a window.
