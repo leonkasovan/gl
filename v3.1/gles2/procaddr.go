@@ -16,7 +16,7 @@
 package gles2
 
 /*
-#cgo gles2 LDFLAGS: -lGLESv2
+#cgo gles2 LDFLAGS: -lGLESv2 -ldl
 #include <dlfcn.h>
 #include <stdlib.h>
 static void* libHandle = NULL;
