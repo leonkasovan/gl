@@ -25,6 +25,8 @@ void* GlowGetProcAddress_gles231(const char* name) {
 		libHandle = dlopen("/usr/lib/libGLESv2.so", RTLD_LAZY);
   	if (libHandle == NULL)
                 libHandle = dlopen("/lib/x86_64-linux-gnu/libGLESv2.so", RTLD_LAZY);
+	if (libHandle == NULL)
+                libHandle = dlopen("/lib/aarch64-linux-gnu/libGLESv2.so", RTLD_LAZY);
  	if (libHandle)
 		return dlsym(libHandle, name);
 }
