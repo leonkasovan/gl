@@ -16,13 +16,15 @@
 package gles2
 
 /*
-#cgo gles2 LDFLAGS: -lGLESv2 -ldl
+#cgo gles2 LDFLAGS: -ldl
 #include <dlfcn.h>
 #include <stdlib.h>
 static void* libHandle = NULL;
 void* GlowGetProcAddress_gles230(const char* name) {
 	if (libHandle == NULL)
 		libHandle = dlopen("/usr/lib/libGLESv2.so", RTLD_LAZY);
+  	if (libHandle == NULL)
+                libHandle = dlopen("/lib/x86_64-linux-gnu/libGLESv2.so", RTLD_LAZY);
  	if (libHandle)
 		return dlsym(libHandle, name);
 }
