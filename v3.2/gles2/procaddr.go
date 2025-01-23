@@ -23,6 +23,7 @@ package gles2
 #cgo !gles2,darwin LDFLAGS: -framework OpenGL
 #cgo gles2,darwin  LDFLAGS: -framework OpenGLES
 #cgo linux freebsd netbsd openbsd CFLAGS: -DTAG_POSIX
+#cgo gles2,linux pkg-config: glesv2
 #cgo !egl,linux !egl,freebsd !egl,netbsd !egl,openbsd pkg-config: gl
 #cgo egl,linux egl,freebsd egl,netbsd egl,openbsd egl,windows CFLAGS: -DTAG_EGL
 #cgo egl,linux egl,freebsd egl,netbsd egl,openbsd pkg-config: egl
