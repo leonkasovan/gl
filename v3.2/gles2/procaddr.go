@@ -16,55 +16,20 @@
 package gles2
 
 /*
-#cgo windows CFLAGS: -DTAG_WINDOWS
-#cgo !gles2,windows       LDFLAGS: -lopengl32
-#cgo gles2,windows        LDFLAGS: -lGLESv2
-#cgo darwin CFLAGS: -DTAG_DARWIN
-#cgo !gles2,darwin LDFLAGS: -framework OpenGL
-#cgo gles2,darwin  LDFLAGS: -framework OpenGLES
-#cgo linux freebsd netbsd openbsd CFLAGS: -DTAG_POSIX
-#cgo gles2,linux pkg-config: glesv2
-#cgo !egl,linux !egl,freebsd !egl,netbsd !egl,openbsd pkg-config: gl
-#cgo egl,linux egl,freebsd egl,netbsd egl,openbsd egl,windows CFLAGS: -DTAG_EGL
-#cgo egl,linux egl,freebsd egl,netbsd egl,openbsd pkg-config: egl
-#cgo egl,windows LDFLAGS: -lEGL
-#cgo egl,darwin  LDFLAGS: -lEGL
-// Check the EGL tag first as it takes priority over the platform's default
-// configuration of WGL/GLX/CGL.
-#if defined(TAG_EGL)
-	#include <stdlib.h>
-	#include <EGL/egl.h>
-	static void* GlowGetProcAddress(const char* name) {
-		return eglGetProcAddress(name);
-	}
-#elif defined(TAG_WINDOWS)
-	#define WIN32_LEAN_AND_MEAN 1
-	#include <windows.h>
-	#include <stdlib.h>
-	static HMODULE ogl32dll = NULL;
-	static void* GlowGetProcAddress(const char* name) {
-		void* pf = wglGetProcAddress((LPCSTR) name);
-		if (pf) {
-			return pf;
-		}
-		if (ogl32dll == NULL) {
-			ogl32dll = LoadLibraryA("opengl32.dll");
-		}
-		return GetProcAddress(ogl32dll, (LPCSTR) name);
-	}
-#elif defined(TAG_DARWIN)
-	#include <stdlib.h>
-	#include <dlfcn.h>
-	static void* GlowGetProcAddress(const char* name) {
-		return dlsym(RTLD_DEFAULT, name);
-	}
-#elif defined(TAG_POSIX)
-	#include <stdlib.h>
-	#include <GL/glx.h>
-	static void* GlowGetProcAddress(const char* name) {
-		return glXGetProcAddress((const GLubyte *) name);
-	}
-#endif
+#cgo gles2 LDFLAGS: -ldl
+#include <dlfcn.h>
+#include <stdlib.h>
+static void* libHandle = NULL;
+void* GlowGetProcAddress(const char* name) {
+	if (libHandle == NULL)
+		libHandle = dlopen("/usr/lib/libGLESv2.so", RTLD_LAZY);
+  	if (libHandle == NULL)
+                libHandle = dlopen("/lib/x86_64-linux-gnu/libGLESv2.so", RTLD_LAZY);
+	if (libHandle == NULL)
+                libHandle = dlopen("/lib/aarch64-linux-gnu/libGLESv2.so", RTLD_LAZY);
+ 	if (libHandle)
+		return dlsym(libHandle, name);
+}
 */
 import "C"
 import "unsafe"
